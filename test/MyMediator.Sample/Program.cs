@@ -15,13 +15,12 @@ namespace MyMediator.Sample
 
             IMediator mediator = new Mediator(serviceProvider.GetRequiredService, typeof(Program));
 
-
             var request = new PrintToConsoleRequest()
             {
                 Text = "Teste was"
             };
 
-            var test = await mediator.SendAsync(request);
+            await mediator.SendAsync(request);
         }
     }
 }

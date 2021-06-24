@@ -10,27 +10,24 @@ namespace MyMediator
 {
     public class Mediator : IMediator
     {
-        private readonly ServiceFactory _serviceResolver;
+        private readonly Func<Type, object> _serviceResolver;
         private readonly ConcurrentDictionary<Type, Type> _requestToHandlerDictionary = 
             new ConcurrentDictionary<Type, Type>();
 
-        private readonly Type _requestHanlderInterface;
-
         private readonly List<Type> _allHandlerTypes;
 
-        public Mediator(ServiceFactory serviceResolver, Type startupType)
+        public Mediator(Func<Type, object> serviceResolver, Type startupType)
         {
             _serviceResolver = serviceResolver;
 
-
-            _requestHanlderInterface = typeof(IRequestHandler<,>);
+            var requestHandlerInterface = typeof(IRequestHandler<,>);
 
             _allHandlerTypes = startupType.Assembly.GetTypes()
                 .Where(t =>
                     !t.IsInterface
                     && !t.IsAbstract
                     & t.GetInterfaces().Any(i =>
-                        i.IsGenericType && _requestHanlderInterface.IsAssignableFrom(i.GetGenericTypeDefinition())))
+                        i.IsGenericType && requestHandlerInterface.IsAssignableFrom(i.GetGenericTypeDefinition())))
                 .ToList();
         }
 
