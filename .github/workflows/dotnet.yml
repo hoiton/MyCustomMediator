@@ -47,7 +47,7 @@ jobs:
         # API key to authenticate with NuGet server, or a token, issued for GITHUB_USER if you use GPR
         NUGET_KEY: ${{ secrets.GITHUB_TOKEN }} # optional
         # NuGet server uri hosting the packages, defaults to https://api.nuget.org
-        NUGET_SOURCE: https://nuget.pkg.github.com/hoiton/MyCustomMediator # optional, default is https://api.nuget.org
+        NUGET_SOURCE: https://nuget.pkg.github.com/hoiton/index.json # optional, default is https://api.nuget.org
         # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
         #INCLUDE_SYMBOLS: # optional
         # Flag to throw an error when trying to publish an existing version of a package
