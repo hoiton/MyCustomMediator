@@ -23,10 +23,10 @@ jobs:
       run: dotnet build --no-restore
     #- name: Test
     #  run: dotnet test --no-build --verbosity normal
-    - name: Publish NuGet
+    - name: Publish NuGet 2
       # You may pin to the exact commit or the version.
-      # uses: brandedoutcast/publish-nuget@c12b8546b67672ee38ac87bea491ac94a587f7cc
-      uses: brandedoutcast/publish-nuget@v2.5.5
+      # uses: Rebel028/publish-nuget@134413239ff7e0c7101db61b6c40a76529d0b0f4
+      uses: Rebel028/publish-nuget@2.6.1
       with:
         # Filepath of the project to be packaged, relative to root of repository
         PROJECT_FILE_PATH: src/MyMediator/MyMediator.csproj
@@ -42,9 +42,13 @@ jobs:
         TAG_COMMIT: false # optional, default is true
         # Format of the git tag, [*] gets replaced with actual version
         #TAG_FORMAT: # optional, default is v*
-        # API key to authenticate with NuGet server
+        # Required for packages pushed to Github Package Registry. User allowed to push to repository, defaults to GITHUB_ACTOR (user that triggered the action)
+        #GITHUB_USER: # optional
+        # API key to authenticate with NuGet server, or a token, issued for GITHUB_USER if you use GPR
         NUGET_KEY: ${{ secrets.GITHUB_TOKEN }} # optional
         # NuGet server uri hosting the packages, defaults to https://api.nuget.org
         NUGET_SOURCE: https://nuget.pkg.github.com/hoiton # optional, default is https://api.nuget.org
         # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
         #INCLUDE_SYMBOLS: # optional
+        # Flag to throw an error when trying to publish an existing version of a package
+        #THOW_ERROR_IF_VERSION_EXISTS: # optional
