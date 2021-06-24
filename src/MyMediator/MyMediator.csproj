@@ -5,6 +5,8 @@
     <Version>0.0.1</Version>
     <Description>My Implementation of a Mediator</Description>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageDescription>My Custom Implementation of a Mediator</PackageDescription>
+    <RepositoryUrl>https://github.com/hoiton/MyCustomMediator</RepositoryUrl>
   </PropertyGroup>
 
 </Project>
