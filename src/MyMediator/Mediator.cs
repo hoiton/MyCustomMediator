@@ -14,21 +14,33 @@ namespace MyMediator
         private readonly ConcurrentDictionary<Type, Type> _requestToHandlerDictionary = 
             new ConcurrentDictionary<Type, Type>();
 
-        private readonly List<Type> _allHandlerTypes;
+        private readonly IEnumerable<Type> _allHandlerTypes;
 
-        public Mediator(Func<Type, object> serviceResolver, Type startupType)
+        public Mediator(Func<Type, object> serviceResolver, IEnumerable<Type> handlerTypes)
         {
             _serviceResolver = serviceResolver;
+            _allHandlerTypes = handlerTypes;
+        }
 
-            var requestHandlerInterface = typeof(IRequestHandler<,>);
-
-            _allHandlerTypes = startupType.Assembly.GetTypes()
+        public Mediator(Func<Type, object> serviceResolver, Type startupType)
+            : this(serviceResolver, 
+                startupType.Assembly.ExportedTypes
                 .Where(t =>
                     !t.IsInterface
                     && !t.IsAbstract
-                    & t.GetInterfaces().Any(i =>
-                        i.IsGenericType && requestHandlerInterface.IsAssignableFrom(i.GetGenericTypeDefinition())))
-                .ToList();
+                    && t.GetInterfaces().Any(i =>
+                        i.IsGenericType && typeof(IRequestHandler<,>).IsAssignableFrom(i.GetGenericTypeDefinition()))))
+        {
+            //_serviceResolver = serviceResolver;
+
+            //var requestHandlerInterface = typeof(IRequestHandler<,>);
+
+            //_allHandlerTypes = startupType.Assembly.GetTypes()
+            //    .Where(t =>
+            //        !t.IsInterface
+            //        && !t.IsAbstract
+            //        && t.GetInterfaces().Any(i =>
+            //            i.IsGenericType && requestHandlerInterface.IsAssignableFrom(i.GetGenericTypeDefinition())));
         }
 
         public async Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request, CancellationToken cancellationToken = default)
