@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <Version>1.0.0</Version>
+    <Description>Extension Methods for my Implementation of a Mediator</Description>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageDescription>Extension Methods for my custom Implementation of a Mediator</PackageDescription>
+    <RepositoryUrl>https://github.com/hoiton/MyCustomMediator</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
