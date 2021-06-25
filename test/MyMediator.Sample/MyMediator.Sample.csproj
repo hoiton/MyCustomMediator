@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\MyMediator\MyMediator.csproj" />
+    <ProjectReference Include="..\..\src\MyMediator.DependencyInjection\MyMediator.DependencyInjection.csproj" />
   </ItemGroup>
 
 </Project>

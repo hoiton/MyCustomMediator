@@ -11,7 +11,7 @@ namespace MyMediator.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddMediator(this IServiceCollection services, Type[] markers)
+        public static IServiceCollection AddMediator(this IServiceCollection services, params Type[] markers)
         {
             var allHandlers =
                 markers.SelectMany(m => GetTypesImplementingInterface(m.Assembly, typeof(IRequestHandler<>))).ToList();

@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using MyMediator.DependencyInjection;
 
 namespace MyMediator.Sample
 {
@@ -11,9 +12,10 @@ namespace MyMediator.Sample
         {
             var serviceProvider = new ServiceCollection()
                 .AddTransient<PrintToConsoleHandler>()
+                .AddMediator(typeof(Program))
                 .BuildServiceProvider();
 
-            IMediator mediator = new Mediator(serviceProvider.GetRequiredService, typeof(Program));
+            var mediator = serviceProvider.GetService<IMediator>();
 
             var request = new PrintToConsoleRequest()
             {
